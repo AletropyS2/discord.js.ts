@@ -1,11 +1,14 @@
 {
     "compilerOptions": {
+        "target": "ES6",
+        "lib": ["ES6", "ES5"],
         "module": "CommonJS",
         "moduleResolution": "Node",
-        "target": "ES6",
-        "lib": ["ES5", "ES6"],
-        "allowJs": false,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "noEmitOnError": true,
         "noImplicitAny": true,
-        "rootDir": "./src/"
+        "rootDir": "./src",
+        "outDir": "./bin"
     }
 }

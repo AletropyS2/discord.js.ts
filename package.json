@@ -8,6 +8,7 @@
   },
   "author": "Aletropy",
   "license": "MIT",
+  "files": ["bin"],
   "dependencies": {
     "discord.js": "^14.7.0",
     "ts-node": "^10.9.1",
