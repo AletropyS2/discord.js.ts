@@ -7,6 +7,7 @@ export default {
     data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Responds bot latency"),
+    permissions: "Administrator",
     run: async (client, interaction) => {
 
         const embed = new EmbedBuilder()

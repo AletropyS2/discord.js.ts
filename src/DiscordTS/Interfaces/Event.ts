@@ -1,5 +1,5 @@
 import TSClient from "../TSClient";
-import { Events } from "discord.js";
+import { ClientEvents, Events } from "discord.js";
 
 interface Run
 {
@@ -8,7 +8,7 @@ interface Run
 
 export default interface Event
 {
-    name: string,
+    name: keyof ClientEvents,
     once?: boolean,
     run: Run;
 }
