@@ -29,15 +29,14 @@ export default class TSClient extends Client
     {
         await this.LoadDefaultEvents();
         
-        await this.login(token ? token : process.env.DISCORD_TOKEN);
-        
         if(paths)
         {
             await this.LoadCommands(paths.commandsPath);
             await this.LoadEvents(paths.eventsPath);
             await this.LoadButtons(paths.buttonsPath);
         }
-
+        
+        await this.login(token ? token : process.env.DISCORD_TOKEN);
     }
 
     private async LoadCommands(commandsPath? : string)
