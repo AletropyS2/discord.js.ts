@@ -1,12 +1,13 @@
 {
   "name": "discord.js-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sandbox Bot for Discord.ts",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
   "scripts": {
     "start": "ts-node src/App.ts",
-    "watch": "nodemon src/App.ts"
+    "watch": "nodemon src/App.ts",
+    "prepublish": "tsc"
   },
   "author": "Aletropy",
   "license": "MIT",
