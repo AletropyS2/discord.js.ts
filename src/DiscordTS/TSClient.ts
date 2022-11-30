@@ -2,6 +2,7 @@ import { Client, ClientOptions, Collection, SlashCommandBuilder } from "discord.
 import Command from "./Interfaces/Command"
 import Event from "./Interfaces/Event"
 import FileIO from "./FileIO"
+import ClientLog from "./ClientLog"
 
 export interface PathsOption
 {
@@ -24,7 +25,7 @@ export default class TSClient extends Client
     {
         await this.login(token ? token : process.env.DISCORD_TOKEN);
 
-        await this.LoadEvents("./src/DiscordTS/Events"); // Load Default Events
+        await this.LoadDefaultEvents();
         
         if(paths)
         {
@@ -69,6 +70,27 @@ export default class TSClient extends Client
                 this.on(event.name, (...args) => event.run(this, ...args));
             }
         }
+    }
+
+    private async LoadDefaultEvents()
+    {
+        this.on("interactionCreate", (interaction) => {
+            if(interaction.isCommand())
+            {
+                const command = this.Commands.get(interaction.commandName);
+
+                if(!command) return;
+
+                command.run(this, interaction);
+            }
+        });
+
+        this.once("ready", () => {
+            console.clear();
+            ClientLog.Info(`Logged in as \x1b[33m${this.user.tag}\x1b[0m!`);
+
+            this.application.commands.set(this.CommandsArray);
+        })
     }
 
 }
