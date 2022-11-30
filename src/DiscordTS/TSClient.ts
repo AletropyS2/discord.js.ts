@@ -27,9 +27,9 @@ export default class TSClient extends Client
 
     public async Initialize(token? : string, paths? : PathsOption)
     {
-        await this.login(token ? token : process.env.DISCORD_TOKEN);
-
         await this.LoadDefaultEvents();
+        
+        await this.login(token ? token : process.env.DISCORD_TOKEN);
         
         if(paths)
         {
@@ -95,6 +95,13 @@ export default class TSClient extends Client
 
     private async LoadDefaultEvents()
     {
+        this.once("ready", () => {
+            console.clear();
+            ClientLog.Info(`Logged in as \x1b[33m${this.user.tag}\x1b[0m!`);
+    
+            this.application.commands.set(this.CommandsArray);
+        })
+
         this.on("interactionCreate", (interaction) => {
 
             if(interaction.isCommand())
@@ -118,13 +125,6 @@ export default class TSClient extends Client
                 button.run(this, interaction);
             }
         });
-
-        this.once("ready", () => {
-            console.clear();
-            ClientLog.Info(`Logged in as \x1b[33m${this.user.tag}\x1b[0m!`);
-
-            this.application.commands.set(this.CommandsArray);
-        })
     }
 
 }
