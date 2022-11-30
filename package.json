@@ -1,6 +1,6 @@
 {
   "name": "@aletropys2/discord.js.ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sandbox Bot for Discord.ts",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
