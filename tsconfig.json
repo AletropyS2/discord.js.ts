@@ -4,11 +4,13 @@
         "lib": ["ES6", "ES5"],
         "module": "CommonJS",
         "moduleResolution": "Node",
+        "declaration": true,
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "noEmitOnError": true,
         "noImplicitAny": true,
-        "rootDir": "./src",
-        "outDir": "./bin"
-    }
+        "outDir": "./bin",
+    },
+    "include": ["src/DiscordTS/**/*", "src/index.ts"],
+    "exclude": ["node_modules"]
 }
