@@ -147,7 +147,29 @@ export default class TSClient extends Client
 
             if(interaction.isButton())
             {
-                const button = this.Buttons.get(interaction.customId);
+                const rawId = interaction.customId;
+
+                if(rawId.startsWith("$_"))
+                {
+                    const Id = rawId.split("_")[1];
+
+                    let button : Button;
+
+                    this.Buttons.forEach((b) => {
+                        if(b.uniqueId.includes(Id))
+                        {
+                            button = b;
+                            return;
+                        }
+                    });
+
+                    if(!button) return;
+
+                    button.run(this, interaction);
+                    return;
+                }
+
+                const button = this.Buttons.get(rawId);
 
                 if(!button) return;
 
