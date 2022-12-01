@@ -3,7 +3,7 @@ import TSClient from "../TSClient";
 
 interface Run
 {
-    (client : TSClient, interaction : ButtonInteraction) : Promise<void>;
+    (client : TSClient, interaction : ButtonInteraction, id? : string) : Promise<void>;
 }
 
 type IdResolvable = string | Array<string>;

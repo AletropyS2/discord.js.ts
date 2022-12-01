@@ -3,7 +3,7 @@ import TSClient from "../TSClient";
 
 interface Run
 {
-    (client: TSClient, interaction : ModalSubmitInteraction) : Promise<void>
+    (client: TSClient, interaction : ModalSubmitInteraction, id? : string) : Promise<void>
 }
 
 export default interface Modal
