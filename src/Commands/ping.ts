@@ -15,6 +15,8 @@ export default {
         .setDescription(`🏓 Pong! \`${client.ws.ping}ms\``)
         .setTimestamp(Date.now());
 
+        
+
         await interaction.reply({ embeds: [embed], ephemeral: true });
 
     }

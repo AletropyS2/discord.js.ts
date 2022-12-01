@@ -1,4 +1,4 @@
-import { Client, ClientOptions, Collection, CommandInteraction, EmbedBuilder, GuildMember, GuildMemberEditData, PermissionResolvable, PermissionsBitField, SlashCommandBuilder } from "discord.js"
+import { ChatInputCommandInteraction, Client, ClientOptions, Collection, CommandInteraction, EmbedBuilder, GuildMember, GuildMemberEditData, PermissionResolvable, PermissionsBitField, SlashCommandBuilder } from "discord.js"
 import Command from "./Interfaces/Command"
 import Event from "./Interfaces/Event"
 import FileIO from "./FileIO"
@@ -112,7 +112,7 @@ export default class TSClient extends Client
                 if(command.permissions)
                     if(!CheckPermissions(command.permissions, interaction, command.permissionMessage)) return;
 
-                command.run(this, interaction);
+                command.run(this, interaction as ChatInputCommandInteraction);
             }
 
             if(interaction.isButton())

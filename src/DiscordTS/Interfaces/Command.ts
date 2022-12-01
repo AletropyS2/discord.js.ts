@@ -1,10 +1,9 @@
-import { CommandInteraction, PermissionFlagsBits, PermissionResolvable, SlashCommandBuilder } from "discord.js";
-import { Type } from "typescript";
+import { ChatInputCommandInteraction, PermissionResolvable, SlashCommandBuilder } from "discord.js";
 import TSClient from "../TSClient";
 
 interface Run
 {
-    (client: TSClient, interaction : CommandInteraction): Promise<void>;
+    (client: TSClient, interaction : ChatInputCommandInteraction): Promise<void>;
 }
 
 export default interface Command
