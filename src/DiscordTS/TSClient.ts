@@ -4,12 +4,15 @@ import Event from "./Interfaces/Event"
 import FileIO from "./FileIO"
 import ClientLog from "./ClientLog"
 import Button from "./Interfaces/Button"
+import Modal from "./Interfaces/Modal"
+import { type } from "os"
 
-export interface PathsOption
+interface PathsOption
 {
     commandsPath?: string,
     eventsPath?: string,
     buttonsPath? : string;
+    modalsPath? : string;
 }
 
 export default class TSClient extends Client
@@ -19,6 +22,7 @@ export default class TSClient extends Client
     public CommandsArray : any[] = [];
 
     public Buttons : Collection<string, Button> = new Collection();
+    public Modals : Collection<string, Modal> = new Collection();
 
     constructor(options : ClientOptions)
     {
@@ -34,6 +38,7 @@ export default class TSClient extends Client
             await this.LoadCommands(paths.commandsPath);
             await this.LoadEvents(paths.eventsPath);
             await this.LoadButtons(paths.buttonsPath);
+            await this.LoadModals(paths.modalsPath);
         }
         
         await this.login(token ? token : process.env.DISCORD_TOKEN);
@@ -88,7 +93,32 @@ export default class TSClient extends Client
         {
             const button = require(file).default as Button;
 
-            this.Buttons.set(button.uniqueId, button);
+            if(typeof button.uniqueId === "string")
+            {
+                this.Buttons.set(button.uniqueId, button);
+            }
+            else
+            {
+                for(const id of button.uniqueId)
+                {
+                    this.Buttons.set(id, button);
+                }
+            }
+        }
+    }
+
+    private async LoadModals(modalsPath? : string)
+    {
+        if(!modalsPath) return;
+
+        const files = await FileIO.GetAllFiles(modalsPath);
+        
+
+        for(const file of files)
+        {
+            const modal = require(file).default as Modal;
+
+            this.Modals.set(modal.uniqueId, modal);
         }
     }
 
@@ -122,6 +152,15 @@ export default class TSClient extends Client
                 if(!button) return;
 
                 button.run(this, interaction);
+            }
+
+            if(interaction.isModalSubmit())
+            {
+                const modal = this.Modals.get(interaction.customId);
+
+                if(!modal) return;
+
+                modal.run(this, interaction);
             }
         });
     }

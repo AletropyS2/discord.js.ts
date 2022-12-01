@@ -6,8 +6,10 @@ interface Run
     (client : TSClient, interaction : ButtonInteraction) : Promise<void>;
 }
 
+type IdResolvable = string | Array<string>;
+
 export default interface Button
 {
-    uniqueId : string;
+    uniqueId : IdResolvable;
     run : Run;
 }
